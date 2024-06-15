@@ -1,0 +1,25 @@
+name: fovea-kcf-test
+
+# 请参考datasets/factory.py
+dataset: mot17_train_FRCNN
+
+# 对每一个视频序列而言，截取其start至end的数据进行追踪
+frame_range:
+  start: 0.0
+  end: 1.0
+
+
+# Foveation Settings
+
+# 经过处理后的图像，相较于原始图像的压缩比
+compress_ratio:
+  width: 5.0
+  height: 5.0
+
+# 中央凹区域占原始图像的宽高比例
+fovea_scale:
+  width: 0.5
+  height: 0.5
+
+# 中央凹区域目标检测模型的权重位置
+fovea_obj_detect_weight: '/home/user/frog/mot-dbt/tracking_wo_bnw/output/faster_rcnn_fpn_training_mot_17/model_epoch_27.model'
