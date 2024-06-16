@@ -13,8 +13,8 @@ frame_range:
 
 # 经过处理后的图像，相较于原始图像的压缩比
 compress_ratio:
-  width: 5.0
-  height: 5.0
+  width: 4.0
+  height: 4.0
 
 # 中央凹区域占原始图像的宽高比例
 fovea_scale:
@@ -23,3 +23,9 @@ fovea_scale:
 
 # 中央凹区域目标检测模型的权重位置
 fovea_obj_detect_weight: '/home/user/frog/mot-dbt/tracking_wo_bnw/output/faster_rcnn_fpn_training_mot_17/model_epoch_27.model'
+
+# 中央凹区域目标检测模型，检测的置信度阈值
+detect_person_thresh: 0.5
+
+# 可视化图片的输出根目录
+visualize_output_root: 'output'

@@ -25,17 +25,13 @@ class Fovea_FRCNN_FPN(FasterRCNN):
         self.features = None
         self.device = device
 
-    def detect(self, images):
+    def detect(self, img):
+        device = list(self.parameters())[0].device
+        img = img.to(device)
 
-        # if self.device is not None:
-        #     print(f'Image tensor type {type(images)}')
-        #     images = images.to(self.device)
-        #     print(f'Using device {self.device}')
-        #     print(f'Image tensor type {type(images)}')
-            
-        detections = self(images)[0]
+        detections = self(img)[0]
 
-        return detections['boxes'].detach(), detections['scores'].detach(), detections['labels'].detach()
+        return detections['boxes'].detach(), detections['scores'].detach()
     
     def load_image(self, images):
         if self.device is not None:

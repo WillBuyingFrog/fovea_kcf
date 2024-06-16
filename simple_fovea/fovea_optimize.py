@@ -67,7 +67,8 @@ class FoveaOptimizer():
         return torch.tensor([box[0], box[1], box[2] - box[0], box[3] - box[1]])
 
     def get_fovea_position(self, current_frame_img, prev_online_boxes,
-                           visualize=False, visualize_path='../results', visualize_mark='mark'):
+                           visualize=False, visualize_path='../results', visualize_mark='mark',
+                           online_box_type='tlwh'):
         online_tlwhs = []
         tlwhs_weight = []
         if self.is_PIL:
@@ -93,9 +94,14 @@ class FoveaOptimizer():
 
         # 将截至上一帧的所有track结果转成tlwh格式
         if len(prev_online_boxes) > 0:
-            for box in prev_online_boxes:
-                online_tlwhs.append(self.box_to_tlwh(box))
-                tlwhs_weight.append(3.0)
+            if online_box_type == 'tlwh':
+                for box in prev_online_boxes:
+                    online_tlwhs.append(box)
+                    tlwhs_weight.append(3.0)
+            else:
+                for box in prev_online_boxes:
+                    online_tlwhs.append(self.box_to_tlwh(box))
+                    tlwhs_weight.append(3.0)
         
         if len(online_tlwhs) > 0:
             fovea_x, fovea_y = self.optimize(online_tlwhs, fovea_width=self.fovea_width, fovea_height=self.fovea_height,
